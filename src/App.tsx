@@ -26,12 +26,16 @@ function App() {
           <li key={todo.id}>{todo.content}</li>
         ))}
       </ul>
-      <div style="padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;color:green;">
+      <div>
         🥳 App successfully hosted. Try creating a new todo.
         <br />
         <a href="https://docs.amplify.aws/react/start/quickstart/#make-frontend-updates">
           Review next step of this tutorial.
         </a>
+      </div>
+      <div>
+      <br/>
+        Newly Updated by Developer to Check for Status Committs.
       </div>
     </main>
   );
