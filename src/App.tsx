@@ -17,7 +17,7 @@ function App() {
   }, []);
 
   function createTodo() {
-    client.models.Todo.create({ content: window.prompt("Todo content") });
+    client.models.Todo.create({ content: window.prompt("Todo content - updated") });
   }
   
   function deleteTodo(id: string) {
@@ -51,7 +51,7 @@ function App() {
       <br/>
         Newly Updated by Developer to Check for Status Committs.
       </div>
-      <button onClick={signOut}>Sign out</button>
+      <button onClick={signOut}>Sign outout</button>
     </main>
           
       )}
