@@ -31,7 +31,7 @@ function App() {
       
     <main>
       <h1>My ToDo's</h1>
-      <button onClick={createTodo}>+ New</button>
+      <button onClick={createTodo}>+ New Todo</button>
       
       <ul>
         {todos.map((todo) => (
