@@ -23,6 +23,15 @@ function App() {
   function deleteTodo(id: string) {
     client.models.Todo.delete({ id })
   }
+
+  
+  function createLeads(){
+      client.models.Leads.create({ content: window.prompt("Lead Name") });
+  }
+
+  function deleteLeads(id: string) {
+    client.models.Leads.delete({ id })
+  }
   
   return (
         
@@ -32,6 +41,7 @@ function App() {
     <main>
       <h1>My ToDo's</h1>
       <button onClick={createTodo}>+ New Todo</button>
+      <button onClick={createLeads}>+ New Lead</button>
       
       <ul>
         {todos.map((todo) => (
