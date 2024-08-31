@@ -12,13 +12,8 @@ const schema = a.schema({
       content: a.string(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
-  Leads: b
-  .model({
-      Lead_PID: b.string(),
-      Lead_FirstName: b.string(),
-      Lead_LastName: b.string()
-  }).authorization((allow) => [allow.publicApiKey()]),
 });
+
 
 export type Schema = ClientSchema<typeof schema>;
 
@@ -33,6 +28,28 @@ export const data = defineData({
   },
 });
 
+
+const schema_lead = b.schema ({
+  Leads: b
+  .model({
+      Lead_PID: b.string(),
+      Lead_FirstName: b.string(),
+      Lead_LastName: b.string()
+  }).authorization((allow) => [allow.publicApiKey()]),
+});
+
+export type SchemaLead = LeadSchema<typeof schema_lead>;
+
+export const data = defineData({
+  schema_lead,
+  authorizationModes: {
+    defaultAuthorizationMode: "apiKey",
+    // API Key is used for a.allow.public() rules
+    apiKeyAuthorizationMode: {
+      expiresInDays: 30,
+    },
+  },
+});
 /*== STEP 2 ===============================================================
 Go to your frontend source code. From your client-side code, generate a
 Data client to make CRUDL requests to your table. (THIS SNIPPET WILL ONLY
