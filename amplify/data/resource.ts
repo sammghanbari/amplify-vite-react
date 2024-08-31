@@ -28,7 +28,7 @@ export const data = defineData({
   },
 });
 
-
+/*
 const schema_lead = b.schema ({
   Leads: b
   .model({
@@ -49,7 +49,7 @@ export const data = defineData({
       expiresInDays: 30,
     },
   },
-});
+});*/
 /*== STEP 2 ===============================================================
 Go to your frontend source code. From your client-side code, generate a
 Data client to make CRUDL requests to your table. (THIS SNIPPET WILL ONLY
