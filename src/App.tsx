@@ -24,7 +24,7 @@ function App() {
     client.models.Todo.delete({ id })
   }
 
-  
+  /*
   function createLeads(){
       client.models.Leads.create({ content: window.prompt("Lead Name") });
   }
@@ -32,7 +32,7 @@ function App() {
   function deleteLeads(id: string) {
     client.models.Leads.delete({ id })
   }
-  
+  */
   return (
         
     <Authenticator>
