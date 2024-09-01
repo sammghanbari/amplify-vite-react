@@ -26,8 +26,9 @@ function App() {
 
   
   function createLeads(){
-      client.models.Leads.create({ Lead_PID: "4", Lead_FirstName: "Sam2", Lead_LastName: "Gha2"});
-	  window.prompt("lead created");
+		let l_id = window.prompt("Lead Id");
+      client.models.Leads.create({ Lead_PID: l_id, Lead_FirstName: "Sam3", Lead_LastName: "Gha3"});
+		console.log("Lead Created");
   }
 
   /*function deleteLeads(id: string) {
