@@ -28,6 +28,10 @@ function App() {
 	textBox.placeholder = "Enter your email";
 	textBox.maxLength = 50;
 	document.getElementsByTagName('body')[0].appendChild(textBox);
+
+		//let l_id = window.prompt("Lead Id");
+      // <input type="text" id="LeadId" placeholder="Enter lead id"></input>
+
 */
 
   function createTodo() {
@@ -40,7 +44,6 @@ function App() {
 
   
   function createLeads(){
-		//let l_id = window.prompt("Lead Id");
 		const textBox = document.getElementById("LeadId") as HTMLInputElement | null;
 		if (textBox != null) 
 		{ 
@@ -79,7 +82,6 @@ function App() {
 	  </div>
 	  <div>
       <button onClick={createLeads}>+ New Lead</button>
-      <input type="text" id="LeadId" placeholder="Enter lead id"></input>
 	  <ul>
         {leads.map((lead) => (
           <li 
