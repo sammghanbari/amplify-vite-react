@@ -9,10 +9,17 @@ const client = generateClient<Schema>();
 
 function App() {
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
+  const [leads, setLeads] = useState<Array<Schema["Leads"]["type"]>>([]);
 
   useEffect(() => {
     client.models.Todo.observeQuery().subscribe({
       next: (data) => setTodos([...data.items]),
+    });
+  }, []);
+
+  useEffect(() => {
+    client.models.Leads.observeQuery().subscribe({
+      next: (data) => setLeads([...data.items]),
     });
   }, []);
 
@@ -31,11 +38,10 @@ function App() {
 		console.log("Lead Created");
   }
 
-  /*function deleteLeads(id: string) {
+  function deleteLeads(id: string) {
     client.models.Leads.delete({ id })
   }
-      <button onClick={createLeads}>+ New Lead</button>
-  */
+  
   return (
         
     <Authenticator>
@@ -43,8 +49,8 @@ function App() {
       
     <main>
       <h1>My ToDo's</h1>
+	  <div>
       <button onClick={createTodo}>+ New Todo</button>
-      <button onClick={createLeads}>+ New Lead</button>
       
 	  <ul>
         {todos.map((todo) => (
@@ -53,13 +59,26 @@ function App() {
             key={todo.id}>{todo.content}</li>
         ))}
       </ul>
+	  </div>
+	  <div>
+      <button onClick={createLeads}>+ New Lead</button>
+      
+	  <ul>
+        {leads.map((lead) => (
+          <li 
+            onClick={() => deleteLeads(lead.id)}
+            key={lead.id}>{lead.Lead_FirstName + " "+ lead.Lead_LastName}</li>
+        ))}
+      </ul>
+	  </div>
+	  
       <div>
         🥳 App successfully hosted. Try creating a new todo.
         <br />
         <a href="https://docs.amplify.aws/react/start/quickstart/#make-frontend-updates">
           Review next step of this tutorial.
         </a>
-      </div>
+	  </div>
       <div>
       <br/>
         Newly Updated by Developer to Check for Status Committs.
