@@ -24,14 +24,16 @@ function App() {
     client.models.Todo.delete({ id })
   }
 
-  /*
+  
   function createLeads(){
-      client.models.Leads.create({ content: window.prompt("Lead Name") });
+      client.models.Leads.create({ Lead_PID: "3", Lead_FirstName: "Sam1", Lead_LastName: "Gha1"});
+	  window.prompt("lead created");
   }
 
-  function deleteLeads(id: string) {
+  /*function deleteLeads(id: string) {
     client.models.Leads.delete({ id })
   }
+      <button onClick={createLeads}>+ New Lead</button>
   */
   return (
         
@@ -43,7 +45,7 @@ function App() {
       <button onClick={createTodo}>+ New Todo</button>
       <button onClick={createLeads}>+ New Lead</button>
       
-      <ul>
+	  <ul>
         {todos.map((todo) => (
           <li 
             onClick={() => deleteTodo(todo.id)}
