@@ -9,7 +9,6 @@ const client = generateClient<Schema>();
 
 function App() {
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
-  const [leads, setLeads] = useState<Array<Schema["Leads"]["type"]>>([]);
 
   useEffect(() => {
     client.models.Todo.observeQuery().subscribe({
@@ -17,11 +16,19 @@ function App() {
     });
   }, []);
 
+  const [leads, setLeads] = useState<Array<Schema["Leads"]["type"]>>([]);
   useEffect(() => {
     client.models.Leads.observeQuery().subscribe({
       next: (data) => setLeads([...data.items]),
     });
   }, []);
+/*
+  const textBox = document.createElement("input");
+	textBox.type = "text";
+	textBox.placeholder = "Enter your email";
+	textBox.maxLength = 50;
+	document.getElementsByTagName('body')[0].appendChild(textBox);
+*/
 
   function createTodo() {
     client.models.Todo.create({ content: window.prompt("Todo content - updated") });
@@ -33,15 +40,26 @@ function App() {
 
   
   function createLeads(){
-		let l_id = window.prompt("Lead Id");
-      client.models.Leads.create({ Lead_PID: l_id, Lead_FirstName: "Sam3", Lead_LastName: "Gha3"});
-		console.log("Lead Created");
+		//let l_id = window.prompt("Lead Id");
+		const textBox = document.getElementById("LeadId") as HTMLInputElement | null;
+		if (textBox != null) 
+		{ 
+			let l_id = textBox.value;
+			client.models.Leads.create({ Lead_PID: l_id, Lead_FirstName: "Sam3", Lead_LastName: "Gha3"});
+			console.log("Lead Created");
+		}
   }
 
   function deleteLeads(id: string) {
     client.models.Leads.delete({ id })
   }
   
+
+	let nameTextBox = document.getElementById("name") as HTMLInputElement;
+		nameTextBox.addEventListener("input", () => {
+		console.log("User entered: " + nameTextBox.value);
+	});
+
   return (
         
     <Authenticator>
@@ -50,8 +68,7 @@ function App() {
     <main>
       <h1>My ToDo's</h1>
 	  <div>
-      <button onClick={createTodo}>+ New Todo</button>
-      
+      <button onClick={createTodo}>+ New Todo</button>      
 	  <ul>
         {todos.map((todo) => (
           <li 
@@ -62,7 +79,7 @@ function App() {
 	  </div>
 	  <div>
       <button onClick={createLeads}>+ New Lead</button>
-      
+      <input type="text" id="LeadId" placeholder="Enter lead id"></input>
 	  <ul>
         {leads.map((lead) => (
           <li 
