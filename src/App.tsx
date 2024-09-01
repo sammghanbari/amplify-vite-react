@@ -26,7 +26,7 @@ function App() {
 
   
   function createLeads(){
-      client.models.Leads.create({ Lead_PID: "3", Lead_FirstName: "Sam1", Lead_LastName: "Gha1"});
+      client.models.Leads.create({ Lead_PID: "4", Lead_FirstName: "Sam2", Lead_LastName: "Gha2"});
 	  window.prompt("lead created");
   }
 
