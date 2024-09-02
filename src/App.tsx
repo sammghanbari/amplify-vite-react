@@ -48,13 +48,33 @@ function App() {
 
   
   function createLeads(){
-		const textBox = document.getElementById("LeadId") as HTMLInputElement | null;
-		if (textBox != null) 
-		{ 
-			let l_id = textBox.value;
-			client.models.Leads.create({ Lead_PID: l_id, Lead_FirstName: "Sam3", Lead_LastName: "Gha3"});
-			console.log("Lead Created");
-		}
+		const textBox_LId = document.getElementById("LeadId") as HTMLInputElement | null;
+		const textBox_First = document.getElementById("FName") as HTMLInputElement | null;
+		const textBox_Last = document.getElementById("LName") as HTMLInputElement | null;
+		
+		let LId: string;
+		let FName: string ;
+		let LName: string ; 
+		
+		 
+		if (textBox_LId == null)
+			{LId = "100"}
+			else
+			 LId = textBox_LId.value;
+			 
+		if (textBox_First == null)
+			{FName = "Default_fname"}
+			else
+			FName = textBox_First.value;
+			
+		if (textBox_Last == null)
+			{LName = "Default_lname"}
+			else
+			LName = textBox_Last.value;
+			
+		client.models.Leads.create({ Lead_PID: LId, Lead_FirstName: FName, Lead_LastName: LName});
+		console.log("Lead Created");
+		
   }
 
   function deleteLeads(id: string) {
@@ -81,10 +101,14 @@ function App() {
 	  </div>
 	  <div>
 	  <ul>
-	  <input type="text" id="LeadId" placeholder="Enter lead id"/>
+	  <input type="text" id="LeadId" placeholder="Lead id"/>
+	  <input type="text" id="FName" placeholder="First Name"/>
+	  <input type="text" id="LName" placeholder="Last Name"/>
+	  
 	  </ul>
-		
+		<li>	
       <button onClick={createLeads}>+ New Lead</button>
+	  </li>
 	  <ul>
         {leads.map((lead) => (
           <li 
