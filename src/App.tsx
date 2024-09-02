@@ -80,8 +80,10 @@ function App() {
       </ul>
 	  </div>
 	  <div>
+	  <ul>
 	  <input type="text" id="LeadId" placeholder="Enter lead id"/>
-
+	  </ul>
+		
       <button onClick={createLeads}>+ New Lead</button>
 	  <ul>
         {leads.map((lead) => (
