@@ -32,6 +32,10 @@ function App() {
 		//let l_id = window.prompt("Lead Id");
       // <input type="text" id="LeadId" placeholder="Enter lead id"></input>
 
+	let nameTextBox = document.getElementById("name") as HTMLInputElement;
+		nameTextBox.addEventListener("input", () => {
+		console.log("User entered: " + nameTextBox.value);
+	});
 */
 
   function createTodo() {
@@ -57,11 +61,6 @@ function App() {
     client.models.Leads.delete({ id })
   }
   
-
-	let nameTextBox = document.getElementById("name") as HTMLInputElement;
-		nameTextBox.addEventListener("input", () => {
-		console.log("User entered: " + nameTextBox.value);
-	});
 
   return (
         
