@@ -1,5 +1,49 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
+import { schema as generatedSqlSchema } from './schema.sql';
 
+
+const sqlSchema = generatedSqlSchema
+.renameModels(() => [
+	["tblContacts", "Contacts_Table"], 
+	["tblLeads","Leads_Table"], 
+	])
+      .setAuthorization((models) => [
+	  models.Leads_Table.authorization(allow => [allow.guest()]),
+	  models.Contacts_Table.authorization(allow=> [allow.guest()])
+	  ]);
+	  
+
+
+// Add a global authorization rule
+
+/*
+const sqlSchema = generatedSqlSchema.authorization(allow => allow.guest())
+
+  .addToSchema({Q
+    listLeads: a.query()
+      // reference custom types added to the schema
+      .returns(a.ref("TblLeads").array())
+      .handler(a.handler.inlineSql(
+          `SELECT
+            LeadId,
+            LeadName,
+            LeadLastName,
+            DOB
+          FROM tblLeads;`
+      ))
+      .authorization(allow => [allow.guest()]),
+
+
+      // Define custom types to provide end-to-end typed results
+      // for custom queries / mutations
+      //TblLeads: a.customType({
+      //  LeadTId: a.integer(),
+      //  LeadTName: a.string(),
+      //  LeadTLastName: a.string(),
+      //  DOB: a.date(),
+      //})
+  })
+  */
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
 adding a new "isDone" field as a boolean. The authorization rule below
@@ -20,11 +64,17 @@ const schema = a.schema({
   }).authorization((allow) => [allow.publicApiKey()]),
 });
 
+//const sqlSchema = generatedSqlSchema.authorization(allow => allow.guest());
 
-export type Schema = ClientSchema<typeof schema>;
+const combinedSchema = a.combine([schema, sqlSchema]);
+
+// export type Schema = ClientSchema<typeof schema>; //Old line
+export type Schema = ClientSchema<typeof combinedSchema>;
+
+
 
 export const data = defineData({
-  schema,
+  schema:combinedSchema,
   authorizationModes: {
     defaultAuthorizationMode: "apiKey",
     // API Key is used for a.allow.public() rules
@@ -32,6 +82,16 @@ export const data = defineData({
       expiresInDays: 30,
     },
   },
+  
+/*  
+const sqlSchema = generatedSqlSchema.setAuthorization((models) => [
+  // Model-level authorization rules
+  models.event.authorization((allow) => [allow.publicApiKey()]),
+  // Field-level authorization rules
+  models.event.fields.id.authorization(allow => [allow.publicApiKey(), allow.guest()]),
+  models.event.fields.created_at.authorization(allow => [allow.publicApiKey(), allow.guest()])
+]);
+*/
 });
 
 /*
@@ -56,6 +116,7 @@ export const data = defineData({
     },
   },
 }); */
+
 /*== STEP 2 ===============================================================
 Go to your frontend source code. From your client-side code, generate a
 Data client to make CRUDL requests to your table. (THIS SNIPPET WILL ONLY
